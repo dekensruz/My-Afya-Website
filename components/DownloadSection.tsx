@@ -1,11 +1,14 @@
 import React from 'react';
-import { Download, Globe } from 'lucide-react';
+import { Download, Globe, Smartphone, Apple } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const DownloadSection: React.FC = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="download" className="py-20 bg-white dark:bg-gray-950 transition-colors duration-300">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -27,46 +30,62 @@ const DownloadSection: React.FC = () => {
           />
 
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-6 relative z-10">
-            Prêt à simplifier votre santé ?
+            {t.download.title}
           </h2>
           <p className="text-blue-100 text-lg mb-10 max-w-2xl mx-auto relative z-10">
-            Rejoignez MyAfya aujourd'hui. L'application est disponible en téléchargement direct (APK) et via notre application web accessible partout.
+            {t.download.desc}
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-6 justify-center relative z-10">
-            {/* Download Button with Pulse */}
+          <div className="flex flex-wrap gap-6 justify-center relative z-10">
+            {/* Android Button */}
             <motion.button 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => alert("Le téléchargement de l'APK démarrera bientôt !")}
-              className="relative flex items-center justify-center px-8 py-4 bg-white text-brand-blue rounded-xl font-bold shadow-lg hover:bg-gray-50 transition-colors"
+              className="flex items-center justify-center px-8 py-4 bg-white text-brand-blue rounded-xl font-bold shadow-lg hover:bg-gray-50 transition-colors min-w-[200px]"
             >
-              <span className="absolute -inset-1 rounded-xl bg-white opacity-30 animate-pulse"></span>
-              <Download className="w-6 h-6 mr-3 relative z-10" />
-              <div className="text-left relative z-10">
-                <div className="text-xs uppercase tracking-wide text-gray-500">Télécharger pour</div>
-                <div className="text-lg">Android (APK)</div>
+              <Smartphone className="w-6 h-6 mr-3" />
+              <div className="text-left">
+                <div className="text-xs uppercase tracking-wide text-gray-500">{t.download.buttons.download}</div>
+                <div className="text-lg">Android</div>
               </div>
             </motion.button>
 
+             {/* iOS Button */}
             <motion.a 
               href="http://myafya.leokongo.com/"
               target="_blank"
               rel="noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center justify-center px-8 py-4 bg-brand-teal text-white rounded-xl font-bold shadow-lg hover:bg-teal-500 transition-colors"
+              className="flex items-center justify-center px-8 py-4 bg-gray-900 text-white rounded-xl font-bold shadow-lg hover:bg-gray-800 transition-colors min-w-[200px]"
+            >
+              <Apple className="w-6 h-6 mr-3" />
+              <div className="text-left">
+                <div className="text-xs uppercase tracking-wide text-gray-400">PWA / Web</div>
+                <div className="text-lg">iOS</div>
+              </div>
+            </motion.a>
+
+            {/* Web Button */}
+            <motion.a 
+              href="http://myafya.leokongo.com/"
+              target="_blank"
+              rel="noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center justify-center px-8 py-4 bg-brand-teal text-white rounded-xl font-bold shadow-lg hover:bg-teal-500 transition-colors min-w-[200px]"
             >
               <Globe className="w-6 h-6 mr-3" />
               <div className="text-left">
-                <div className="text-xs uppercase tracking-wide text-teal-100">Accéder en ligne</div>
-                <div className="text-lg">Application Web</div>
+                <div className="text-xs uppercase tracking-wide text-teal-100">{t.download.buttons.online}</div>
+                <div className="text-lg">{t.hero.buttons.web}</div>
               </div>
             </motion.a>
           </div>
 
           <p className="mt-8 text-sm text-blue-200 opacity-80 relative z-10">
-            Compatible avec tous les appareils Android récents. Version Web compatible iOS et Desktop.
+            {t.download.note}
           </p>
         </motion.div>
       </div>

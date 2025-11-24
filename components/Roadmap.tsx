@@ -1,20 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-
-const steps = [
-  { id: '01', title: 'Phase 1 : Goma & Bukavu', desc: 'Consolidation locale et partenariats clés.' },
-  { id: '02', title: 'Phase 2 : Expansion Régionale', desc: 'Provinces voisines et assurance maladie.' },
-  { id: '03', title: 'Phase 3 : Échelle Nationale', desc: 'Déploiement RDC et infrastructures.' },
-  { id: '04', title: 'Vision : Impact Continental', desc: 'Extension vers d\'autres pays africains.' },
-];
+import { useLanguage } from '../contexts/LanguageContext';
 
 const Roadmap: React.FC = () => {
+  const { t } = useLanguage();
+  const steps = t.roadmap.steps;
+
   return (
     <section id="roadmap" className="py-20 bg-gray-50 dark:bg-gray-900 transition-colors duration-300 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white">Perspectives d'Avenir</h2>
-          <p className="mt-4 text-xl text-gray-500 dark:text-gray-400">Une vision claire pour un impact continental.</p>
+          <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white">{t.roadmap.title}</h2>
+          <p className="mt-4 text-xl text-gray-500 dark:text-gray-400">{t.roadmap.desc}</p>
         </div>
 
         <div className="relative">
@@ -31,7 +28,7 @@ const Roadmap: React.FC = () => {
           ></motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
-            {steps.map((step, index) => (
+            {steps.map((step: any, index: number) => (
               <motion.div 
                 key={step.id} 
                 initial={{ opacity: 0, y: 50 }}

@@ -1,40 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { MessageSquare, BookOpen, PhoneCall, FileText, Lock, Bot } from 'lucide-react';
-import { Feature } from '../types';
-
-const features: Feature[] = [
-  {
-    title: "Consultation Sécurisée 24/7",
-    description: "Communication par chat ou vocal avec anonymat garanti. Mise en relation intelligente avec le médecin approprié.",
-    icon: MessageSquare
-  },
-  {
-    title: "Prévention & Éducation",
-    description: "Des articles et actualités rédigés rigoureusement par des experts de santé pour une information fiable et locale.",
-    icon: BookOpen
-  },
-  {
-    title: "Assistant IA Intelligent",
-    description: "Notre agent IA organise vos rendez-vous, vous assiste 24/7 et facilite votre parcours de soins.",
-    icon: Bot
-  },
-  {
-    title: "Urgence Adaptée au Terrain",
-    description: "Bouton d'urgence intelligent analysant votre localisation pour coordonner la réponse la plus efficace.",
-    icon: PhoneCall
-  },
-  {
-    title: "Suivi Personnalisé",
-    description: "Historique médical complet accessible uniquement aux médecins agréés pour un diagnostic précis.",
-    icon: FileText
-  },
-  {
-    title: "Données Protégées",
-    description: "Technologie de pointe assurant la confidentialité totale de vos échanges et dossiers médicaux.",
-    icon: Lock
-  }
-];
+import { useLanguage } from '../contexts/LanguageContext';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -52,15 +19,50 @@ const itemVariants = {
 };
 
 const Features: React.FC = () => {
+  const { t } = useLanguage();
+
+  const features = [
+    {
+      title: t.features.items[0].title,
+      description: t.features.items[0].desc,
+      icon: MessageSquare
+    },
+    {
+      title: t.features.items[1].title,
+      description: t.features.items[1].desc,
+      icon: BookOpen
+    },
+    {
+      title: t.features.items[2].title,
+      description: t.features.items[2].desc,
+      icon: Bot
+    },
+    {
+      title: t.features.items[3].title,
+      description: t.features.items[3].desc,
+      icon: PhoneCall
+    },
+    {
+      title: t.features.items[4].title,
+      description: t.features.items[4].desc,
+      icon: FileText
+    },
+    {
+      title: t.features.items[5].title,
+      description: t.features.items[5].desc,
+      icon: Lock
+    }
+  ];
+
   return (
     <section id="features" className="py-20 bg-white dark:bg-gray-950 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
-            Votre Plateforme Médicale Optimisée
+            {t.features.title}
           </h2>
           <p className="mt-4 max-w-2xl text-xl text-gray-500 dark:text-gray-400 mx-auto">
-            MyAfia intègre des fonctionnalités innovantes conçues spécifiquement pour répondre aux besoins uniques de tous les Congolais.
+            {t.features.desc}
           </p>
         </div>
 

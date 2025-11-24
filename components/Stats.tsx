@@ -1,11 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-
-const stats = [
-  { label: 'Satisfaction Utilisateurs', value: '95%', sub: 'Taux exceptionnel' },
-  { label: 'Confidentialité Validée', value: '87%', sub: 'Confiance totale' },
-  { label: 'Recommandation', value: '92%', sub: 'Utilisateurs prêts à recommander' },
-];
+import { useLanguage } from '../contexts/LanguageContext';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -27,6 +22,10 @@ const itemVariants = {
 };
 
 const Stats: React.FC = () => {
+  const { t } = useLanguage();
+  
+  const stats = t.stats.items;
+
   return (
     <section id="stats" className="bg-gray-900 py-16 sm:py-24 relative overflow-hidden">
         {/* Animated Background Gradients */}
@@ -59,10 +58,10 @@ const Stats: React.FC = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
-            Résultats des Tests
+            {t.stats.title}
           </h2>
           <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-300">
-            La preuve de notre viabilité et de l'impact réel dans nos communautés.
+            {t.stats.desc}
           </p>
         </motion.div>
         
@@ -73,7 +72,7 @@ const Stats: React.FC = () => {
           viewport={{ once: true }}
           className="grid grid-cols-1 gap-8 sm:grid-cols-3 text-center"
         >
-          {stats.map((stat) => (
+          {stats.map((stat: any) => (
             <motion.div 
               key={stat.label} 
               variants={itemVariants}

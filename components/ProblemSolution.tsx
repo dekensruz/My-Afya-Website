@@ -1,24 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Clock, AlertTriangle, ShieldCheck } from 'lucide-react';
-
-const problems = [
-  {
-    icon: Clock,
-    title: "Temps Perdu & Coûts Cachés",
-    desc: "Files d'attente interminables, distances importantes et frais de transport onéreux rendent l'accès aux soins difficile."
-  },
-  {
-    icon: AlertTriangle,
-    title: "Danger de l'Automédication",
-    desc: "L'absence de professionnels qualifiés conduit souvent à l'automédication, avec des conséquences graves."
-  },
-  {
-    icon: ShieldCheck,
-    title: "Confiance et Anonymat",
-    desc: "La stigmatisation limite la recherche d'aide pour des sujets sensibles (santé mentale, sexuelle)."
-  }
-];
+import { useLanguage } from '../contexts/LanguageContext';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -36,18 +19,38 @@ const itemVariants = {
 };
 
 const ProblemSolution: React.FC = () => {
+  const { t } = useLanguage();
+
+  const problems = [
+    {
+      icon: Clock,
+      title: t.mission.problems[0].title,
+      desc: t.mission.problems[0].desc
+    },
+    {
+      icon: AlertTriangle,
+      title: t.mission.problems[1].title,
+      desc: t.mission.problems[1].desc
+    },
+    {
+      icon: ShieldCheck,
+      title: t.mission.problems[2].title,
+      desc: t.mission.problems[2].desc
+    }
+  ];
+
   return (
     <section id="mission" className="py-20 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Intro */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-brand-blue font-semibold tracking-wide uppercase text-sm mb-2">La Nécessité Nationale</h2>
+          <h2 className="text-brand-blue font-semibold tracking-wide uppercase text-sm mb-2">{t.mission.kicker}</h2>
           <h3 className="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
-            L'Urgence Sanitaire et l'Opportunité de la Télémédecine en RDC
+            {t.mission.title}
           </h3>
           <p className="mt-4 text-xl text-gray-500 dark:text-gray-400">
-            De Kinshasa à Lubumbashi, de Goma à Bukavu et Matadi, nous brisons les barrières pour offrir un accès simplifié aux services de santé modernes.
+            {t.mission.desc}
           </p>
         </div>
 
@@ -86,9 +89,9 @@ const ProblemSolution: React.FC = () => {
           className="mt-20 relative bg-brand-blue rounded-3xl overflow-hidden p-8 sm:p-12 text-center text-white"
         >
             <div className="relative z-10">
-                <h3 className="text-2xl font-bold mb-4">Pour 95 millions de Congolais</h3>
+                <h3 className="text-2xl font-bold mb-4">{t.mission.map.title}</h3>
                 <p className="text-blue-100 max-w-2xl mx-auto mb-8">
-                    Notre mission couvre l'ensemble du territoire congolais. Une innovation vitale pour chaque province.
+                    {t.mission.map.desc}
                 </p>
                 <div className="flex justify-center gap-4 flex-wrap">
                     <span className="px-4 py-2 bg-white/10 rounded-full backdrop-blur text-sm border border-white/20">Kinshasa</span>

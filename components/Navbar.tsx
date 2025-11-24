@@ -1,29 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Globe, Moon, Sun } from 'lucide-react';
+import { Menu, X, Globe, Moon, Sun, Languages } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { NavItem } from '../types';
-
-const navItems: NavItem[] = [
-  { label: 'Accueil', href: '#hero' },
-  { label: 'Mission', href: '#mission' },
-  { label: 'Fonctionnalités', href: '#features' },
-  { label: 'Impact', href: '#stats' },
-  { label: 'Roadmap', href: '#roadmap' },
-  { label: 'Contact', href: '#contact' },
-];
+import { useLanguage } from '../contexts/LanguageContext';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
     
-    // Check system preference or saved theme
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    // Logic: Default to Dark if no preference, or if preference is dark
+    if (localStorage.theme === 'dark' || !('theme' in localStorage)) {
       setIsDark(true);
       document.documentElement.classList.add('dark');
     } else {
@@ -47,13 +39,17 @@ const Navbar: React.FC = () => {
     }
   };
 
+  const toggleLanguage = () => {
+    setLanguage(language === 'fr' ? 'en' : 'fr');
+  };
+
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     const targetId = href.replace('#', '');
     const element = document.getElementById(targetId);
     
     if (element) {
-      const offset = 80; // Height of the navbar + padding
+      const offset = 80;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
 
@@ -64,6 +60,15 @@ const Navbar: React.FC = () => {
     }
     setIsOpen(false);
   };
+
+  const navItems = [
+    { label: t.nav.home, href: '#hero' },
+    { label: t.nav.mission, href: '#mission' },
+    { label: t.nav.features, href: '#features' },
+    { label: t.nav.impact, href: '#stats' },
+    { label: t.nav.roadmap, href: '#roadmap' },
+    { label: t.nav.contact, href: '#contact' },
+  ];
 
   return (
     <motion.nav 
@@ -86,7 +91,7 @@ const Navbar: React.FC = () => {
           <div className="hidden md:flex items-center space-x-6">
             {navItems.map((item) => (
               <a
-                key={item.label}
+                key={item.href}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
                 className={`text-sm font-medium transition-colors hover:text-brand-blue ${scrolled ? 'text-gray-600 dark:text-gray-300' : 'text-gray-700 dark:text-gray-200'}`}
@@ -95,13 +100,24 @@ const Navbar: React.FC = () => {
               </a>
             ))}
             
-            <button 
-              onClick={toggleTheme}
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-300"
-              aria-label="Toggle Theme"
-            >
-              {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </button>
+            <div className="flex items-center gap-2 border-l border-gray-300 dark:border-gray-700 pl-4">
+                <button 
+                  onClick={toggleLanguage}
+                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-300 flex items-center gap-1 text-xs font-bold"
+                  aria-label="Switch Language"
+                >
+                  <Languages className="w-4 h-4" />
+                  {language.toUpperCase()}
+                </button>
+
+                <button 
+                  onClick={toggleTheme}
+                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-300"
+                  aria-label="Toggle Theme"
+                >
+                  {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                </button>
+            </div>
 
             <a 
               href="http://myafya.leokongo.com/"
@@ -110,12 +126,18 @@ const Navbar: React.FC = () => {
               className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-gradient-to-r from-brand-blue to-brand-teal hover:shadow-lg transition-all transform hover:-translate-y-0.5"
             >
               <Globe className="w-4 h-4 mr-2" />
-              Web App
+              {t.nav.webapp}
             </a>
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center gap-4">
+          <div className="md:hidden flex items-center gap-3">
+             <button 
+                  onClick={toggleLanguage}
+                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-300 flex items-center gap-1 text-xs font-bold"
+                >
+                  {language.toUpperCase()}
+            </button>
              <button 
               onClick={toggleTheme}
               className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-300"
@@ -138,7 +160,7 @@ const Navbar: React.FC = () => {
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {navItems.map((item) => (
               <a
-                key={item.label}
+                key={item.href}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:text-brand-blue hover:bg-gray-50 dark:hover:bg-gray-800"
@@ -152,7 +174,7 @@ const Navbar: React.FC = () => {
                rel="noreferrer"
                className="block w-full text-center mt-4 px-5 py-3 rounded-md font-medium text-white bg-brand-blue"
             >
-              Accéder à l'App Web
+              {t.nav.accessWeb}
             </a>
           </div>
         </div>
