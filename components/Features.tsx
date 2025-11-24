@@ -1,0 +1,97 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { MessageSquare, BookOpen, PhoneCall, FileText, Lock, Bot } from 'lucide-react';
+import { Feature } from '../types';
+
+const features: Feature[] = [
+  {
+    title: "Consultation Sécurisée 24/7",
+    description: "Communication par chat ou vocal avec anonymat garanti. Mise en relation intelligente avec le médecin approprié.",
+    icon: MessageSquare
+  },
+  {
+    title: "Prévention & Éducation",
+    description: "Des articles et actualités rédigés rigoureusement par des experts de santé pour une information fiable et locale.",
+    icon: BookOpen
+  },
+  {
+    title: "Assistant IA Intelligent",
+    description: "Notre agent IA organise vos rendez-vous, vous assiste 24/7 et facilite votre parcours de soins.",
+    icon: Bot
+  },
+  {
+    title: "Urgence Adaptée au Terrain",
+    description: "Bouton d'urgence intelligent analysant votre localisation pour coordonner la réponse la plus efficace.",
+    icon: PhoneCall
+  },
+  {
+    title: "Suivi Personnalisé",
+    description: "Historique médical complet accessible uniquement aux médecins agréés pour un diagnostic précis.",
+    icon: FileText
+  },
+  {
+    title: "Données Protégées",
+    description: "Technologie de pointe assurant la confidentialité totale de vos échanges et dossiers médicaux.",
+    icon: Lock
+  }
+];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: { opacity: 1, scale: 1 }
+};
+
+const Features: React.FC = () => {
+  return (
+    <section id="features" className="py-20 bg-white dark:bg-gray-950 transition-colors duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
+            Votre Plateforme Médicale Optimisée
+          </h2>
+          <p className="mt-4 max-w-2xl text-xl text-gray-500 dark:text-gray-400 mx-auto">
+            MyAfia intègre des fonctionnalités innovantes conçues spécifiquement pour répondre aux besoins uniques de tous les Congolais.
+          </p>
+        </div>
+
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          {features.map((feature, index) => (
+            <motion.div 
+              key={index} 
+              variants={itemVariants}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              className="relative group"
+            >
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-brand-blue to-brand-teal rounded-2xl opacity-0 group-hover:opacity-100 transition duration-500 blur"></div>
+              <div className="relative bg-white dark:bg-gray-800 p-8 rounded-2xl h-full flex flex-col border border-gray-100 dark:border-gray-700 shadow-sm transition-colors duration-300">
+                <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-blue-50 dark:bg-blue-900/40 text-brand-blue mb-5 group-hover:scale-110 transition-transform duration-300">
+                  <feature.icon className="h-6 w-6" aria-hidden="true" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{feature.title}</h3>
+                <p className="text-base text-gray-500 dark:text-gray-400 flex-grow">{feature.description}</p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default Features;
