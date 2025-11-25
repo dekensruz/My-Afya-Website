@@ -19,7 +19,7 @@ const itemVariants = {
 };
 
 const ProblemSolution: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const problems = [
     {
@@ -56,6 +56,7 @@ const ProblemSolution: React.FC = () => {
 
         {/* Cards */}
         <motion.div 
+          key={language}
           className="grid grid-cols-1 md:grid-cols-3 gap-8"
           variants={containerVariants}
           initial="hidden"

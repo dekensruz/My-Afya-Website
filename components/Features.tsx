@@ -19,7 +19,7 @@ const itemVariants = {
 };
 
 const Features: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const features = [
     {
@@ -67,6 +67,7 @@ const Features: React.FC = () => {
         </div>
 
         <motion.div 
+          key={language}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12"
           variants={containerVariants}
           initial="hidden"

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const Roadmap: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const steps = t.roadmap.steps;
 
   return (
@@ -27,7 +27,7 @@ const Roadmap: React.FC = () => {
             className="hidden md:block absolute top-1/2 left-0 h-1 bg-gradient-to-r from-brand-blue to-brand-teal -translate-y-1/2 z-0 origin-left"
           ></motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
+          <div key={language} className="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
             {steps.map((step: any, index: number) => (
               <motion.div 
                 key={step.id} 

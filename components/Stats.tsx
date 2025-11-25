@@ -22,7 +22,7 @@ const itemVariants = {
 };
 
 const Stats: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   
   const stats = t.stats.items;
 
@@ -52,6 +52,7 @@ const Stats: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div 
+          key={`title-${language}`}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -66,15 +67,16 @@ const Stats: React.FC = () => {
         </motion.div>
         
         <motion.div 
+          key={`grid-${language}`}
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           className="grid grid-cols-1 gap-8 sm:grid-cols-3 text-center"
         >
-          {stats.map((stat: any) => (
+          {stats.map((stat: any, index: number) => (
             <motion.div 
-              key={stat.label} 
+              key={index}
               variants={itemVariants}
               whileHover={{ scale: 1.05 }}
               className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:bg-white/10 transition-colors duration-300"
