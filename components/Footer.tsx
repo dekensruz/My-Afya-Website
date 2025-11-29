@@ -47,7 +47,7 @@ const Footer: React.FC = () => {
             <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">
               {t.footer.partnersDesc}
             </p>
-            <a href="mailto:info@leokongo.com" className="text-sm font-medium text-brand-blue hover:text-brand-teal flex items-center">
+            <a href="https://myafya-inscription.surge.sh/" className="text-sm font-medium text-brand-blue hover:text-brand-teal flex items-center">
               {t.footer.becomePartner} <Heart className="w-4 h-4 ml-1 fill-current" />
             </a>
           </div>
